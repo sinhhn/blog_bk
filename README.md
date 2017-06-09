@@ -44,7 +44,7 @@ php artisan migrate
 
 ## Basic of laravel
 ### Project Structure
-![Project structure](https://goo.gl/94CQBp)
+![Project structure](http://bit.ly/2s9VYfd)
 ### Basic controller - view
 ```
 //Route
