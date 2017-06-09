@@ -43,6 +43,8 @@ php artisan migrate
 
 
 ## Basic of laravel
+### Project Structure
+https://drive.google.com/open?id=0B_HW_DcSR59FYm9XVFNmM0Y2WU0https://github.com/sinhhn/bloghttps://github.com/sinhhn/bloghttps://drive.google.com/open?id=0B_HW_DcSR59FYm9XVFNmM0Y2WU0https://drive.google.com/open?id=0B_HW_DcSR59FYm9XVFNmM0Y2WU0{}
 ### Basic controller - view
 ```
 //Route
@@ -83,7 +85,7 @@ class PageControllers extends Controller
 ```
 
 ### Layout with blade
-//uss @yield, @include
+//use @yield, @include
 ```
 <!DOCTYPE html>
 <html lang="en">
