@@ -1,5 +1,49 @@
-# blog
-## Basic controller - view
+# Create your own Blog with laravel and docker
+## Development Environment
+### Install
+* [Install laravel](https://laravel.com/docs/5.4#installing-laravel)
+* [Install Docker](https://www.docker.com)
+* [laradock](http://laradock.io/getting-started/)
+
+### Config
+* Create blog project
+```
+laravel new blog
+```
+* Go to blog directory and checkout laradock
+* Go to laradock directory, create .env config
+```
+cp env-example .env
+```
+* Create docker container
+```
+docker-compose up -d mysql nginx redis
+```
+* Create database
+```
+docker-compose exec mysql bash
+mysql -uroot -proot
+create database blog;
+```
+* Modify .env of your project as bellow:
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=blog
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+* migrate database
+```
+docker-compose exec workspace bash
+php artisan migrate
+```
+* Acess localhost
+
+
+## Basic of laravel
+### Basic controller - view
 ```
 //Route
 Route::get('/', 'PageControllers@getIndex'); //// should be last line in route
