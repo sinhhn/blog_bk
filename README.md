@@ -106,3 +106,8 @@ class PageControllers extends Controller
 </html>
 
 ```
+### Working with model
+* Create a new model
+```
+php artisan make:model Post -m // -m or --migration 
+```
