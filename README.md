@@ -43,8 +43,7 @@ php artisan migrate
 
 
 ## Basic of laravel
-### Project Structure
-![Project structure](http://bit.ly/2s9VYfd)
+
 ### Basic controller - view
 ```
 //Route
@@ -111,3 +110,36 @@ class PageControllers extends Controller
 ```
 php artisan make:model Post -m // -m or --migration 
 ```
+* Define a table
+```
+// database/migrations
+class CreatePostsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');    // create auto increment colunm
+            $table->string('title')->default('No title given');     //varchar colunm
+            $table->text('body');     // Text colunm
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('posts');
+    }
+}
+
+```
+
