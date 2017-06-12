@@ -142,4 +142,50 @@ class CreatePostsTable extends Migration
 }
 
 ```
+After defined table, you can migrate with php artisan:
+```
+php artisan migrate
+```
+
+### Working with Form
+Use Laravel Collective From
+* Update composer
+```
+// Composer.json
+ "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html":"^5.4.0"
+    },
+    
+// Run command
+composer update
+```
+* Add to project
+```
+//config/app.php
+'providers' => [
+///
+Collective\Html\HtmlServiceProvider::class,
+///
+]
+
+'aliases' => [
+///
+'Form' => Collective\Html\FormFacade::class,
+'Html' => Collective\Html\HtmlFacade::class,
+///
+]
+
+// view
+{!! Form::open(['route' => 'posts.store']) !!}
+            {{Form::label('title', 'Title')}}
+            {{Form::text('title', null, array('class' => 'form-control'))}}
+            {{Form::label('body', 'Post Body:')}}
+            {{Form::textarea('body', null, array('class' => 'form-control'))}}
+
+            {{Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;'))}}
+            {!! Form::close() !!}
+```
 
