@@ -188,3 +188,20 @@ Collective\Html\HtmlServiceProvider::class,
 {!! Form::close() !!}
 ```
 
+### Working with model
+* Save model to db
+```
+$post = new Post()
+$post->title = 'title';
+$post->body = 'hello world';
+$post->save();
+
+//redirect to another path
+return redirect()->route('posts.show', $post->id);
+```
+* Get data from db and pass to view
+```
+// Controller
+$post = DB:table('posts')->where('id', $id)->first();
+return view('posts.listpost', ['post' => $post]);
+```
