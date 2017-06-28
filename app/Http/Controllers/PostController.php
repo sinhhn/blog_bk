@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -13,6 +15,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -44,10 +47,7 @@ class PostController extends Controller
         ));
 
         // Store in database
-        $post = new Post();
-        $post->title = $request->title;
-        $post->body=$request->body;
-
+        $post = PostRepository::createPost($request->title, $request->body);
         $post->save();
 
         // Redirect to another page
@@ -62,9 +62,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // Get data from database
-        $post = DB::table('posts')->where('id', $id)->first();
-        return view('posts.listpost')->withPost($post);
+        return view('posts.posts', ['post' => PostRepository::getPostById($id)]);
     }
 
     /**
@@ -99,6 +97,18 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function download($path)
+    {
+        $fs = Storage::getDriver();
+        $stream = $fs->readStream($path);
+        return \Response::stream(function() use($stream) {
+            fpassthru($stream);
+        }, 200, [
+            "Content-Type" => $fs->getMimetype($path),
+            "Content-Length" => $fs->getSize($path),
+            "Content-disposition" => "attachment; filename=\"" .basename($path) . "\"",
+        ]);
     }
 }
 
