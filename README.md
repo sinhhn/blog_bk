@@ -43,8 +43,7 @@ php artisan migrate
 
 
 ## Basic of laravel
-### Project Structure
-![Project structure](http://bit.ly/2s9VYfd)
+
 ### Basic controller - view
 ```
 //Route
@@ -105,4 +104,104 @@ class PageControllers extends Controller
 
 </html>
 
+```
+### Working with model
+* Create a new model
+```
+php artisan make:model Post -m // -m or --migration 
+```
+* Define a table
+```
+// database/migrations
+class CreatePostsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');    // create auto increment colunm
+            $table->string('title')->default('No title given');     //varchar colunm
+            $table->text('body');     // Text colunm
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('posts');
+    }
+}
+
+```
+After defined table, you can migrate with php artisan:
+```
+php artisan migrate
+```
+
+### Working with Form
+Use Laravel Collective From
+* Update composer
+```
+// Composer.json
+ "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html":"^5.4.0"
+    },
+    
+// Run command
+composer update
+```
+* Add to project
+```
+//config/app.php
+'providers' => [
+///
+Collective\Html\HtmlServiceProvider::class,
+///
+]
+
+'aliases' => [
+///
+'Form' => Collective\Html\FormFacade::class,
+'Html' => Collective\Html\HtmlFacade::class,
+///
+]
+
+// view
+{!! Form::open(['route' => 'posts.store']) !!}
+{{Form::label('title', 'Title')}}
+{{Form::text('title', null, array('class' => 'form-control'))}}
+{{Form::label('body', 'Post Body:')}}
+{{Form::textarea('body', null, array('class' => 'form-control'))}}
+{{Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;'))}}
+{!! Form::close() !!}
+```
+
+### Working with model
+* Save model to db
+```
+$post = new Post()
+$post->title = 'title';
+$post->body = 'hello world';
+$post->save();
+
+//redirect to another path
+return redirect()->route('posts.show', $post->id);
+```
+* Get data from db and pass to view
+```
+// Controller
+$post = DB:table('posts')->where('id', $id)->first();
+return view('posts.listpost', ['post' => $post]);
 ```
