@@ -1,6 +1,8 @@
 @extends('main')
 
 @section('title', '| Create New Post')
+    @section('styleheets')
+        @endsection
 
 @section('content')
     <div class="row">
