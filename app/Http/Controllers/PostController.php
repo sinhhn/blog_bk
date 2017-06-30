@@ -18,7 +18,7 @@ class PostController extends Controller
 
     public function index()
     {
-        //
+
     }
 
     /**
@@ -49,7 +49,6 @@ class PostController extends Controller
         // Store in database
         $post = PostRepository::createPost($request->title, $request->body);
         $post->save();
-
         // Redirect to another page
         return redirect()->route('posts.show', $post->id);
     }

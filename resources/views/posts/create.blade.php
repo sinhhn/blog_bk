@@ -14,7 +14,6 @@
             {{Form::text('title', null, array('class' => 'form-control'))}}
             {{Form::label('body', 'Post Body:')}}
             {{Form::textarea('body', null, array('class' => 'form-control'))}}
-
             {{Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;'))}}
             {!! Form::close() !!}
         </div>
